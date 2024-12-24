@@ -79,7 +79,11 @@ Index of this file:
 // IMGUI_API is used for core imgui functions, IMGUI_IMPL_API is used for the default backends files (imgui_impl_xxx.h)
 // Using dear imgui via a shared library is not recommended: we don't guarantee backward nor forward ABI compatibility + this is a call-heavy library and function call overhead adds up.
 #ifndef IMGUI_API
-#define IMGUI_API
+#ifdef Drizzle3D_LINUX
+#define IMGUI_API __attribute__((visibility("default")))
+#else
+#define IMGUI_API __declspec(dllexport)
+#endif
 #endif
 #ifndef IMGUI_IMPL_API
 #define IMGUI_IMPL_API              IMGUI_API
